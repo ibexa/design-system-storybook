@@ -1,0 +1,16 @@
+{%- include ibexa_get_template('design-system/components/expander') -%}
+
+<script>
+    const togglerElement = document.querySelector('.ibexa-expander');
+
+    togglerElement.addEventListener('ibexa-ds:component:initialized', ({ detail }) => {
+        const { component } = detail;
+
+        component.expandHandler = (isExpanded) => {
+            window.parent?.postMessage({
+                method: 'onClick',
+                args: [isExpanded],
+            },"*");
+        };
+    });
+</script>

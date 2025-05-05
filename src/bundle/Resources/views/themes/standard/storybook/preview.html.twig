@@ -1,0 +1,19 @@
+{% set base_component = ibexa_get_template('design-system/components/' ~ id) %}
+{% set wrapped_component = '@IbexaDesignSystemStorybook/themes/standard/storybook/components/' ~ id ~ '.html.twig' %}
+<head>
+    {{ encore_entry_link_tags('ibexa-design-system-storybook-css', null, 'ibexa') }}
+</head>
+<div class="component-preview" style="display: inline-block">
+    {{ include([wrapped_component, base_component], args) }}
+</div>
+
+<script>
+    const componentPreview = window.document.querySelector('.component-preview');
+    const { height, width } = componentPreview.getBoundingClientRect();
+    const margin = Number.parseInt(window.getComputedStyle(window.document.body).margin);
+
+    window.parent?.postMessage({
+        width: Math.ceil(width) + 2 * margin,
+        height: Math.ceil(height) + 2 * margin,
+    },"*");
+</script>

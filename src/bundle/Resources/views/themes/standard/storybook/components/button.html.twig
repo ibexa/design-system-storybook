@@ -1,0 +1,18 @@
+{%- embed ibexa_get_template('design-system/components/button') -%}
+    {% block content %}
+        {{ children|raw }}
+    {% endblock %}
+{%- endembed -%}
+
+<script>
+    const btnElement = document.querySelector('.ibexa-btn');
+
+    btnElement.addEventListener('click', (event) => {
+        const eventClone = { ...event };
+
+        window.parent?.postMessage({
+            method: 'onClick',
+            args: [eventClone],
+        },"*");
+    });
+</script>

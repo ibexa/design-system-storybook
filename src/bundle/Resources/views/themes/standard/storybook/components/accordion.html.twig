@@ -1,0 +1,7 @@
+<div style="width: 800px; min-height: 300px">
+    {%- embed ibexa_get_template('design-system/components/accordion') -%}
+        {% block content %}
+            {{ children|raw }}
+        {% endblock %}
+    {%- endembed -%}
+</div>
