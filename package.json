@@ -1,0 +1,18 @@
+{
+    "name": "design-system-storybook",
+    "repository": "git@github.com:ibexa/design-system-storybook.git",
+    "private": true,
+    "dependencies": {},
+    "devDependencies": {
+        "@ibexa/eslint-config": "https://github.com/ibexa/eslint-config-ibexa#~v2.0.0",
+        "@ibexa/ts-config": "https://github.com/ibexa/ts-config-ibexa#~v1.1.0",
+        "@zackad/prettier-plugin-twig": "^0.16.0"
+    },
+    "scripts": {
+        "test": "yarn prettier-test && yarn eslint-test",
+        "fix": "yarn prettier-test --write && yarn eslint-test --fix",
+        "eslint-test": "eslint \"./src/bundle/Resources/**/*.{js,ts}\"",
+        "prettier-test": "yarn prettier \"./src/bundle/Resources/**/*.{js,ts,scss,twig}\" --check"
+    },
+    "packageManager": "yarn@1.22.22"
+}

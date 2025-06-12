@@ -1,0 +1,6 @@
+ibexa.designsystemstorybook.preview:
+    path: /storybook/preview/{storybookId}
+    defaults:
+        _controller: 'Ibexa\Bundle\DesignSystemStorybook\Controller\StorybookController::getPreview'
+    requirements:
+        storybookId: \w+
