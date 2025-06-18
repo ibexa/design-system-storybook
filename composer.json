@@ -1,15 +1,9 @@
 {
     "name": "ibexa/design-system-storybook",
-    "license": "proprietary",
+    "license": "(GPL-2.0-only or proprietary)",
     "type": "ibexa-bundle",
     "keywords": [
         "ibexa-dxp"
-    ],
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://updates.ibexa.co"
-        }
     ],
     "require": {
         "php": ">=8.3",
