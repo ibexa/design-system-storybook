@@ -1,4 +1,4 @@
-{% set base_component = ibexa_get_template('design-system/components/' ~ id) %}
+{% set base_component = ids_get(id) %}
 {% set wrapped_component = '@IbexaDesignSystemStorybook/themes/standard/storybook/components/' ~ id ~ '.html.twig' %}
 <head>
     {{ encore_entry_link_tags('ibexa-design-system-storybook-css', null, 'ibexa') }}
