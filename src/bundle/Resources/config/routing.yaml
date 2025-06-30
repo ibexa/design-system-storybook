@@ -1,3 +1,8 @@
+ibexa.designsystemstorybook.status:
+    path: /storybook/status
+    defaults:
+        _controller: 'Ibexa\Bundle\DesignSystemStorybook\Controller\StorybookController::getStatus'
+
 ibexa.designsystemstorybook.preview:
     path: /storybook/preview/{storybookId}
     defaults:

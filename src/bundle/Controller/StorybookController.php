@@ -18,6 +18,11 @@ class StorybookController
     ) {
         $this->twig = $twig;
     }
+
+    public function getStatus(Request $request): Response
+    {
+        return new Response('', Response::HTTP_OK);
+    }
     
     public function getPreview(Request $request, string $storybookId): Response
     {
