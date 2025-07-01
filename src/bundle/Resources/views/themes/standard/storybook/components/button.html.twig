@@ -1,11 +1,7 @@
-{%- embed ids_get('button') -%}
-    {% block content %}
-        {{ children|raw }}
-    {% endblock %}
-{%- endembed -%}
+{{- include(ids_get('button'), { label: children|default(null) }) -}}
 
 <script>
-    const btnElement = document.querySelector('.ibexa-btn');
+    const btnElement = document.querySelector('.ids-btn');
 
     btnElement.addEventListener('click', (event) => { const eventClone = { ...event };
 
