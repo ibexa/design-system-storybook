@@ -1,9 +1,9 @@
-{%- include ids_get('expander') -%}
+<twig:ibexa:Expander {{ ...args }} />
 
 <script>
-    const togglerElement = document.querySelector('.ibexa-expander');
+    const togglerElement = document.querySelector('.ids-expander');
 
-    togglerElement.addEventListener('ibexa-ds:component:initialized', ({ detail }) => { const { component } = detail;
+    togglerElement.addEventListener('ids:component:initialized', ({ detail }) => { const { component } = detail;
 
     component.expandHandler = (isExpanded) => { window.parent?.postMessage({ method: 'onClick', args: [isExpanded], },"*"); }; });
 </script>
