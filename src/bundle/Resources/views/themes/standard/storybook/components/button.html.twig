@@ -1,4 +1,10 @@
-{{- include(ids_get('button'), { label: children|default(null) }) -}}
+{% if content == null %}
+    <twig:ibexa:ButtonIcon {{ ...args }} />
+{% else %}
+    <twig:ibexa:Button {{ ...args }}>
+        {{ content }}
+    </twig:ibexa:Button>
+{% endif %}
 
 <script>
     const btnElement = document.querySelector('.ids-btn');

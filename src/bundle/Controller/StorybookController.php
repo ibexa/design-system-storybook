@@ -26,18 +26,27 @@ class StorybookController
     
     public function getPreview(Request $request, string $storybookId): Response
     {
-        $template = sprintf('@IbexaDesignSystemStorybook/themes/standard/storybook/preview.html.twig');
+        $previewTemplate = sprintf('@IbexaDesignSystemStorybook/themes/standard/storybook/preview.html.twig');
+        $storybookComponentTemplate = sprintf('@IbexaDesignSystemStorybook/themes/standard/storybook/components/%s.html.twig', $storybookId);
+        $useDefaultComponent = $this->twig->getLoader()->exists($storybookComponentTemplate);
         $camelCaseArgs = json_decode($request->query->get('properties'), true);
+        $componentContent = null;
         $snakeCaseArgs = [];
 
         foreach ($camelCaseArgs as $camelCaseKey => $value) {
+            if ($camelCaseKey == 'children') {
+                $componentContent = $value;
+
+                continue;
+            }
+
             $snakeCaseKey = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $camelCaseKey));
 
             $snakeCaseArgs[$snakeCaseKey] = $value;
         }
 
-        $context = ['args' => $snakeCaseArgs, 'id' => $storybookId];
-        $content = $this->twig->render($template, $context);
+        $context = ['args' => $snakeCaseArgs, 'content' => $componentContent, 'use_default_component' => $useDefaultComponent, 'id' => $storybookId];
+        $content = $this->twig->render($previewTemplate, $context);
 
         // During development, storybook is served from a different port than the Symfony app
         // You can use nelmio/cors-bundle to set the Access-Control-Allow-Origin header correctly

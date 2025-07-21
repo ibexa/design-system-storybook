@@ -1,10 +1,6 @@
 {% set base_component = ids_get(id) %}
 {% set wrapped_component = '@IbexaDesignSystemStorybook/themes/standard/storybook/components/' ~ id ~ '.html.twig' %}
 
-{% if args.children is defined and args.content is not defined %}
-    {% set args = args|merge({ content: args.children }) %}
-{% endif %}
-
 <head>
     {{ encore_entry_script_tags('ibexa-design-system-storybook-js', null, 'ibexa') }}
     {{ encore_entry_link_tags('ibexa-design-system-storybook-css', null, 'ibexa') }}
