@@ -1,12 +1,16 @@
-{% set header = args.header %}
-{% set args = args|filter((v, k) => k != 'header') %}
+{% extends '@IbexaDesignSystemStorybook/themes/standard/storybook/base_preview.html.twig' %}
 
-<div style="width: 800px; min-height: 300px">
-    <twig:ibexa:Accordion {{ ...args }}>
-        {% block header %}
-            {{- header|raw -}}
-        {% endblock header %}
+{% block component %}
+    {% set header = args.header %}
+    {% set args = args|filter((v, k) => k != 'header') %}
 
-        {{- content|raw -}}
-    </twig:ibexa:Accordion>
-</div>
+    <div style="width: 800px; min-height: 300px">
+        <twig:ibexa:Accordion {{ ...args }}>
+            <twig:block name="header">
+                {{ header|raw }}
+            </twig:block>
+
+            {{- content|raw -}}
+        </twig:ibexa:Accordion>
+    </div>
+{% endblock component %}

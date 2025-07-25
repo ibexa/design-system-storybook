@@ -1,1 +1,6 @@
-<twig:ibexa:CustomIcon {{ ...args }} path="/bundles/ibexaadminuiassets/vendors/ids-assets/dist/{{ path }}" />
+
+{% extends '@IbexaDesignSystemStorybook/themes/standard/storybook/base_preview.html.twig' %}
+
+{% block component %}
+    <twig:ibexa:CustomIcon {{ ...args }} path="/bundles/ibexaadminuiassets/vendors/ids-assets/dist/{{ args.path }}" />
+{% endblock component %}

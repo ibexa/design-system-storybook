@@ -24,7 +24,7 @@ class StorybookController
         $snakeCase = preg_replace($pattern, '_', $camelCase);
 
         return strtolower($snakeCase); 
-    } 
+    }
 
     public function getStatus(Request $request): Response
     {
@@ -33,10 +33,15 @@ class StorybookController
     
     public function getPreview(Request $request, string $storybookId): Response
     {
-        $previewTemplate = sprintf('@IbexaDesignSystemStorybook/themes/standard/storybook/preview.html.twig');
-        $storybookIdTemplateName = $this->camelToSnake($storybookId);
-        $storybookComponentTemplate = sprintf('@IbexaDesignSystemStorybook/themes/standard/storybook/components/%s.html.twig', $storybookIdTemplateName);
-        $useDefaultComponent = !$this->twig->getLoader()->exists($storybookComponentTemplate);
+        $previewTemplate = sprintf('@IbexaDesignSystemStorybook/themes/standard/storybook/base_preview.html.twig');
+        $customIdTemplateName = $this->camelToSnake($storybookId);
+        $customTemplate = sprintf('@IbexaDesignSystemStorybook/themes/standard/storybook/components/%s.html.twig', $customIdTemplateName);
+        $componentTwigId = str_replace('/', ':', $storybookId);
+        
+        if ($this->twig->getLoader()->exists($customTemplate)) {
+            $previewTemplate = $customTemplate;
+        }
+
         $camelCaseArgs = json_decode($request->query->get('properties'), true);
         $componentContent = null;
         $snakeCaseArgs = [];
@@ -57,7 +62,7 @@ class StorybookController
             $snakeCaseArgs[$snakeCaseKey] = $value;
         }
 
-        $context = ['args' => $snakeCaseArgs, 'content' => $componentContent, 'use_default_component' => $useDefaultComponent, 'id' => $storybookId];
+        $context = ['args' => $snakeCaseArgs, 'content' => $componentContent, 'component_id' => $componentTwigId];
         $content = $this->twig->render($previewTemplate, $context);
 
         // During development, storybook is served from a different port than the Symfony app

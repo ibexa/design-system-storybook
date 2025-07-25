@@ -1,6 +1,12 @@
-{% set html_for = args.html_for %}
-{% set args = args|filter((v, k) => k != 'html_for') %}
 
-<twig:ibexa:Label :for="html_for" {{ ...args }}>
-    {{ content|raw }}
-</twig:ibexa:Label>
+
+{% extends '@IbexaDesignSystemStorybook/themes/standard/storybook/base_preview.html.twig' %}
+
+{% block component %}
+    {% set html_for = args.html_for %}
+    {% set args = args|filter((v, k) => k != 'html_for') %}
+
+    <twig:ibexa:Label :for="html_for" {{ ...args }}>
+        {{ content|raw }}
+    </twig:ibexa:Label>
+{% endblock component %}
