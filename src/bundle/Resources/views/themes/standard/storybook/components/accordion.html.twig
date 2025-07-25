@@ -1,7 +1,12 @@
+{% set header = args.header %}
+{% set args = args|filter((v, k) => k != 'header') %}
+
 <div style="width: 800px; min-height: 300px">
-    {%- embed ids_get('accordion') -%}
-        {% block content %}
-            {{ children|raw }}
+    <twig:ibexa:Accordion {{ ...args }}>
+        {% block header %}
+            {{- header|raw -}}
         {% endblock %}
-    {%- endembed -%}
+
+        {{- content|raw -}}
+    </twig:ibexa:Accordion>
 </div>

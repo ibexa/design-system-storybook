@@ -1,1 +1,9 @@
-{%- include ids_get('label') with { for: html_for } -%}
+{% set html_for = args.html_for %}
+{% set args = args|filter((v, k) => k != 'html_for') %}
+
+<twig:ibexa:Label 
+    :for="html_for"
+    {{ ...args }} 
+>
+    {{ content|raw }}
+</twig:ibexa:Label>

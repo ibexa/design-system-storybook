@@ -19,6 +19,13 @@ class StorybookController
         $this->twig = $twig;
     }
 
+    private function camelToSnake($camelCase) { 
+        $pattern = '/(?<=\\w)(?=[A-Z])|(?<=[a-z])(?=[0-9])/';
+        $snakeCase = preg_replace($pattern, '_', $camelCase);
+
+        return strtolower($snakeCase); 
+    } 
+
     public function getStatus(Request $request): Response
     {
         return new Response('', Response::HTTP_OK);
@@ -27,8 +34,9 @@ class StorybookController
     public function getPreview(Request $request, string $storybookId): Response
     {
         $previewTemplate = sprintf('@IbexaDesignSystemStorybook/themes/standard/storybook/preview.html.twig');
-        $storybookComponentTemplate = sprintf('@IbexaDesignSystemStorybook/themes/standard/storybook/components/%s.html.twig', $storybookId);
-        $useDefaultComponent = $this->twig->getLoader()->exists($storybookComponentTemplate);
+        $storybookIdTemplateName = $this->camelToSnake($storybookId);
+        $storybookComponentTemplate = sprintf('@IbexaDesignSystemStorybook/themes/standard/storybook/components/%s.html.twig', $storybookIdTemplateName);
+        $useDefaultComponent = !$this->twig->getLoader()->exists($storybookComponentTemplate);
         $camelCaseArgs = json_decode($request->query->get('properties'), true);
         $componentContent = null;
         $snakeCaseArgs = [];
@@ -38,9 +46,13 @@ class StorybookController
                 $componentContent = $value;
 
                 continue;
+            } elseif ($camelCaseKey == 'className') {
+                $snakeCaseArgs['class'] = $value;
+
+                continue;
             }
 
-            $snakeCaseKey = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $camelCaseKey));
+            $snakeCaseKey = $this->camelToSnake($camelCaseKey);
 
             $snakeCaseArgs[$snakeCaseKey] = $value;
         }

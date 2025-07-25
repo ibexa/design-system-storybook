@@ -1,10 +1,6 @@
-{% if content == null %}
-    <twig:ibexa:ButtonIcon {{ ...args }} />
-{% else %}
-    <twig:ibexa:Button {{ ...args }}>
-        {{ content }}
-    </twig:ibexa:Button>
-{% endif %}
+<twig:ibexa:Button {{ ...args }}>
+    {{ content }}
+</twig:ibexa:Button>
 
 <script>
     const btnElement = document.querySelector('.ids-btn');

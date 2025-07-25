@@ -1,5 +1,5 @@
-{% set base_component = ids_get(id) %}
-{% set wrapped_component = '@IbexaDesignSystemStorybook/themes/standard/storybook/components/' ~ id ~ '.html.twig' %}
+
+
 
 <head>
     {{ encore_entry_script_tags('ibexa-design-system-storybook-js', null, 'ibexa') }}
@@ -7,7 +7,13 @@
 </head>
 
 <div class="component-preview" style="display: inline-block">
-    {{ include([wrapped_component, base_component], args) }}
+    {% if use_default_component %}
+        {{ component('ibexa:' ~ id, args) }}
+    {% else %}
+        {% set wrapped_component_template = '@IbexaDesignSystemStorybook/themes/standard/storybook/components/' ~ id|u.snake ~ '.html.twig' %}
+
+        {{ include(wrapped_component_template, args) }}
+    {% endif %}
 </div>
 
 <script>
