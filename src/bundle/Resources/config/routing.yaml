@@ -8,4 +8,4 @@ ibexa.designsystemstorybook.preview:
     defaults:
         _controller: 'Ibexa\Bundle\DesignSystemStorybook\Controller\StorybookController::getPreview'
     requirements:
-        storybookId: \w+
+        storybookId: .+
