@@ -1,6 +1,3 @@
-
-
-
 <head>
     {{ encore_entry_script_tags('ibexa-design-system-storybook-js', null, 'ibexa') }}
     {{ encore_entry_link_tags('ibexa-design-system-storybook-css', null, 'ibexa') }}
@@ -10,18 +7,16 @@
     {% if use_default_component %}
         {{ component('ibexa:' ~ id, args) }}
     {% else %}
-        {% set wrapped_component_template = '@IbexaDesignSystemStorybook/themes/standard/storybook/components/' ~ id|u.snake ~ '.html.twig' %}
+        {% set wrapped_component_template = '@IbexaDesignSystemStorybook/themes/standard/storybook/components/' ~ id|u.snake ~ '.html.twig'
+        %}
 
         {{ include(wrapped_component_template, args) }}
     {% endif %}
 </div>
 
 <script>
-    document.fonts.ready.then(() => {
-        const componentPreview = window.document.querySelector('.component-preview');
-        const { height, width } = componentPreview.getBoundingClientRect();
-        const margin = Number.parseInt(window.getComputedStyle(window.document.body).margin);
+    document.fonts.ready.then(() => { const componentPreview = window.document.querySelector('.component-preview'); const { height, width }
+    = componentPreview.getBoundingClientRect(); const margin = Number.parseInt(window.getComputedStyle(window.document.body).margin);
 
-        window.parent?.postMessage({ width: Math.ceil(width) + 2 * margin, height: Math.ceil(height) + 2 * margin, },"*");
-    });
+    window.parent?.postMessage({ width: Math.ceil(width) + 2 * margin, height: Math.ceil(height) + 2 * margin, },"*"); });
 </script>
