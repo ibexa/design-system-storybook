@@ -1,9 +1,11 @@
-{%- include ids_get('expander') -%}
+{% extends '@IbexaDesignSystemStorybook/themes/standard/storybook/base_preview.html.twig' %}
 
-<script>
-    const togglerElement = document.querySelector('.ibexa-expander');
+{% block scripts %}
+    {{ parent() }}
 
-    togglerElement.addEventListener('ibexa-ds:component:initialized', ({ detail }) => { const { component } = detail;
+    const togglerElement = document.querySelector('.ids-expander');
+
+    togglerElement.addEventListener('ids:component:initialized', ({ detail }) => { const { component } = detail;
 
     component.expandHandler = (isExpanded) => { window.parent?.postMessage({ method: 'onClick', args: [isExpanded], },"*"); }; });
-</script>
+{% endblock scripts %}

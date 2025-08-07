@@ -8,6 +8,7 @@ export default {
             options: {
                 parser: 'twig',
                 plugins: ['@zackad/prettier-plugin-twig'],
+                twigOutputEndblockName: true,
             },
         },
     ],

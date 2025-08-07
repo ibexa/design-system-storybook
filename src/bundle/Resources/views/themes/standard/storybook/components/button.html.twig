@@ -1,9 +1,17 @@
-{{- include(ids_get('button'), { label: children|default(null) }) -}}
+{% extends '@IbexaDesignSystemStorybook/themes/standard/storybook/base_preview.html.twig' %}
 
-<script>
+{% block component %}
+    <twig:ibexa:Button {{ ...args }}>
+        {{ content }}
+    </twig:ibexa:Button>
+{% endblock component %}
+
+{% block scripts %}
+    {{ parent() }}
+
     const btnElement = document.querySelector('.ids-btn');
 
     btnElement.addEventListener('click', (event) => { const eventClone = { ...event };
 
     window.parent?.postMessage({ method: 'onClick', args: [eventClone], },"*"); });
-</script>
+{% endblock scripts %}

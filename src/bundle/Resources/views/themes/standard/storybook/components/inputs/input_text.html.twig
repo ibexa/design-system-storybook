@@ -1,1 +1,8 @@
-{%- include ids_get('inputs/input_text') with { readonly: read_only|default(false) } -%}
+{% extends '@IbexaDesignSystemStorybook/themes/standard/storybook/base_preview.html.twig' %}
+
+{% block component %}
+    {% set readonly = args.read_only|default(false) %}
+    {% set args = args|filter((v, k) => k != 'read_only') %}
+
+    <twig:ibexa:inputs:InputText :readonly="readonly" {{ ...args }} />
+{% endblock component %}
