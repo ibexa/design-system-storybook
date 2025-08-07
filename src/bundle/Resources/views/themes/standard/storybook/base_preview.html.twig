@@ -13,10 +13,12 @@
 
 <script>
     {% block scripts %}
-        document.fonts.ready.then(() => { const componentPreview = window.document.querySelector('.component-preview'); const { height,
-        width } = componentPreview.getBoundingClientRect(); const margin =
-        Number.parseInt(window.getComputedStyle(window.document.body).margin);
+        document.fonts.ready.then(() => {
+            const componentPreview = window.document.querySelector('.component-preview');
+            const { height, width } = componentPreview.getBoundingClientRect();
+            const margin = Number.parseInt(window.getComputedStyle(window.document.body).margin);
 
-        window.parent?.postMessage({ width: Math.ceil(width) + 2 * margin, height: Math.ceil(height) + 2 * margin, },"*"); });
+            window.parent?.postMessage({ width: Math.ceil(width) + 2 * margin, height: Math.ceil(height) + 2 * margin, },"*");
+        });
     {% endblock scripts %}
 </script>
