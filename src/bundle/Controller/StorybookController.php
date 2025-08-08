@@ -1,11 +1,15 @@
 <?php
 
+/**
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
+ * @license For full copyright and license information view LICENSE file distributed with this source code.
+ */
+declare(strict_types=1);
+
 namespace Ibexa\Bundle\DesignSystemStorybook\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Attribute\AsController;
-use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
 
 class StorybookController
@@ -19,25 +23,26 @@ class StorybookController
         $this->twig = $twig;
     }
 
-    private function camelToSnake($camelCase) { 
+    private function camelToSnake($camelCase)
+    {
         $pattern = '/(?<=\\w)(?=[A-Z])|(?<=[a-z])(?=[0-9])/';
         $snakeCase = preg_replace($pattern, '_', $camelCase);
 
-        return strtolower($snakeCase); 
+        return strtolower($snakeCase);
     }
 
     public function getStatus(Request $request): Response
     {
         return new Response('', Response::HTTP_OK);
     }
-    
+
     public function getPreview(Request $request, string $storybookId): Response
     {
         $previewTemplate = sprintf('@IbexaDesignSystemStorybook/themes/standard/storybook/base_preview.html.twig');
         $customIdTemplateName = $this->camelToSnake($storybookId);
         $customTemplate = sprintf('@IbexaDesignSystemStorybook/themes/standard/storybook/components/%s.html.twig', $customIdTemplateName);
         $componentTwigId = str_replace('/', ':', $storybookId);
-        
+
         if ($this->twig->getLoader()->exists($customTemplate)) {
             $previewTemplate = $customTemplate;
         }
