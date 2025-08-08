@@ -12,21 +12,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
-class StorybookController
+final class StorybookController
 {
-    /** @var \Twig\Environment */
-    // protected $twig;
-
     public function __construct(
-        Environment $twig,
+        private readonly Environment $twig
     ) {
-        $this->twig = $twig;
     }
 
-    private function camelToSnake($camelCase)
+    private function camelToSnake(string $camelCase): string
     {
         $pattern = '/(?<=\\w)(?=[A-Z])|(?<=[a-z])(?=[0-9])/';
-        $snakeCase = preg_replace($pattern, '_', $camelCase);
+        $snakeCase = preg_replace($pattern, '_', $camelCase) ?? '';
 
         return strtolower($snakeCase);
     }
@@ -47,7 +43,7 @@ class StorybookController
             $previewTemplate = $customTemplate;
         }
 
-        $camelCaseArgs = json_decode($request->query->get('properties'), true);
+        $camelCaseArgs = json_decode($request->query->getString('properties'), true);
         $componentContent = null;
         $snakeCaseArgs = [];
 
