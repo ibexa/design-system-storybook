@@ -33,10 +33,10 @@ final class StorybookController
         return new Response('', Response::HTTP_OK);
     }
 
-    public function getPreview(Request $request, string $storybookId, ?Profiler $profiler): Response
+    public function getPreview(Request $request, string $storybookId, ?Profiler $profiler = null): Response
     {
-        if ($request->server->get('HTTP_SEC_FETCH_DEST') === 'iframe') {
-            $profiler->disable();
+        if ($this->shouldDisableProfiler($request)) {
+            $profiler?->disable();
         }
 
         $previewTemplate = sprintf('@IbexaDesignSystemStorybook/themes/standard/storybook/base_preview.html.twig');
@@ -76,5 +76,10 @@ final class StorybookController
         $headers = ['Access-Control-Allow-Origin' => 'http://localhost:6006'];
 
         return new Response($content, Response::HTTP_OK, $headers);
+    }
+
+    private function shouldDisableProfiler(Request $request): bool
+    {
+        return $request->headers->get('sec-fetch-dest') === 'iframe';
     }
 }
