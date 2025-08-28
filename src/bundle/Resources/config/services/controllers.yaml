@@ -6,3 +6,5 @@ services:
     Ibexa\Bundle\DesignSystemStorybook\Controller\StorybookController:
         tags:
             -   name: controller.service_arguments
+
+    Symfony\Component\HttpKernel\Profiler\Profiler: '@profiler'
