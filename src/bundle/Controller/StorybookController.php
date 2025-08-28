@@ -10,6 +10,7 @@ namespace Ibexa\Bundle\DesignSystemStorybook\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Profiler\Profiler;
 use Twig\Environment;
 
 final class StorybookController
@@ -32,8 +33,12 @@ final class StorybookController
         return new Response('', Response::HTTP_OK);
     }
 
-    public function getPreview(Request $request, string $storybookId): Response
+    public function getPreview(Request $request, string $storybookId, ?Profiler $profiler = null): Response
     {
+        if ($this->shouldDisableProfiler($request)) {
+            $profiler?->disable();
+        }
+
         $previewTemplate = sprintf('@IbexaDesignSystemStorybook/themes/standard/storybook/base_preview.html.twig');
         $customIdTemplateName = $this->camelToSnake($storybookId);
         $customTemplate = sprintf('@IbexaDesignSystemStorybook/themes/standard/storybook/components/%s.html.twig', $customIdTemplateName);
@@ -71,5 +76,10 @@ final class StorybookController
         $headers = ['Access-Control-Allow-Origin' => 'http://localhost:6006'];
 
         return new Response($content, Response::HTTP_OK, $headers);
+    }
+
+    private function shouldDisableProfiler(Request $request): bool
+    {
+        return $request->headers->get('sec-fetch-dest') === 'iframe';
     }
 }
