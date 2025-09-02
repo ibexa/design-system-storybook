@@ -1,0 +1,27 @@
+{% extends '@IbexaDesignSystemStorybook/themes/standard/storybook/base_preview.html.twig' %}
+
+{% block component %}
+    {% set input_props = args.input_props %}
+    {% set input_props_names = ['checked', 'disabled', 'error', 'required'] %}
+
+    {% for prop_name in input_props_names %}
+        {% set prop_fullname = 'input_props.' ~ prop_name %}
+
+        {% if args[prop_fullname] is defined %}
+            {% set input_props =
+                input_props|merge({
+                    (prop_name): args[prop_fullname]
+                })
+            %}
+        {% endif %}
+    {% endfor %}
+
+    {% set args =
+        args|filter(
+            (v, k) => (k|replace({ 'input_props.': '' })) not in input_props_names
+        )
+    %}
+    {% set args = args|filter((v, k) => k != 'input_props') %}
+
+    <twig:ibexa:inputs:AltRadio {{ ...args }} :inputProps="input_props" />
+{% endblock component %}
