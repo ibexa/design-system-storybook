@@ -1,10 +1,10 @@
 {% extends '@IbexaDesignSystemStorybook/themes/standard/storybook/base_preview.html.twig' %}
 
 {% block component %}
-    {% set html_for = args.html_for %}
-    {% set args = args|filter((v, k) => k != 'html_for') %}
+    {% set html_for = args.htmlFor %}
+    {% set args = args|filter((v, k) => k != 'htmlFor') %}
 
-    <twig:ibexa:Label :for="html_for" {{ ...args }}>
+    <twig:ibexa:label :for="html_for" {{ ...args }}>
         {{ content|raw }}
-    </twig:ibexa:Label>
+    </twig:ibexa:label>
 {% endblock component %}

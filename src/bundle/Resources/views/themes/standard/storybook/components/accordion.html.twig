@@ -5,12 +5,12 @@
     {% set args = args|filter((v, k) => k != 'header') %}
 
     <div style="width: 800px; min-height: 300px">
-        <twig:ibexa:Accordion {{ ...args }}>
+        <twig:ibexa:accordion {{ ...args }}>
             <twig:block name="header">
                 {{ header|raw }}
             </twig:block>
 
             {{- content|raw -}}
-        </twig:ibexa:Accordion>
+        </twig:ibexa:accordion>
     </div>
 {% endblock component %}

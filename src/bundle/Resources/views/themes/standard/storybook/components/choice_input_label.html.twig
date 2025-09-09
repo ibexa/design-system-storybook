@@ -1,13 +1,13 @@
 {% extends '@IbexaDesignSystemStorybook/themes/standard/storybook/base_preview.html.twig' %}
 
 {% block component %}
-    {% set html_for = args.html_for %}
-    {% set args = args|filter((v, k) => k != 'html_for') %}
+    {% set html_for = args.htmlFor %}
+    {% set args = args|filter((v, k) => k != 'htmlFor') %}
     {% set content_block -%}
         {{ content|raw }}
     {%- endset %}
 
-    <twig:ibexa:ChoiceInputLabel :for="html_for" {{ ...args }}>
+    <twig:ibexa:choice_input_label :for="html_for" {{ ...args }}>
         {{- content_block -}}
-    </twig:ibexa:ChoiceInputLabel>
+    </twig:ibexa:choice_input_label>
 {% endblock component %}

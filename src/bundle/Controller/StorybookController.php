@@ -42,33 +42,31 @@ final class StorybookController
         $previewTemplate = sprintf('@IbexaDesignSystemStorybook/themes/standard/storybook/base_preview.html.twig');
         $customIdTemplateName = $this->camelToSnake($storybookId);
         $customTemplate = sprintf('@IbexaDesignSystemStorybook/themes/standard/storybook/components/%s.html.twig', $customIdTemplateName);
-        $componentTwigId = str_replace('/', ':', $storybookId);
+        $componentTwigId = str_replace('/', ':', $customIdTemplateName);
 
         if ($this->twig->getLoader()->exists($customTemplate)) {
             $previewTemplate = $customTemplate;
         }
 
-        $camelCaseArgs = json_decode($request->query->getString('properties'), true);
+        $args = json_decode($request->query->getString('properties'), true);
         $componentContent = null;
-        $snakeCaseArgs = [];
+        $transformedArgs = [];
 
-        foreach ($camelCaseArgs as $camelCaseKey => $value) {
-            if ($camelCaseKey == 'children') {
+        foreach ($args as $key => $value) {
+            if ($key == 'children') {
                 $componentContent = $value;
 
                 continue;
-            } elseif ($camelCaseKey == 'className') {
-                $snakeCaseArgs['class'] = $value;
+            } elseif ($key == 'className') {
+                $transformedArgs['class'] = $value;
 
                 continue;
             }
 
-            $snakeCaseKey = $this->camelToSnake($camelCaseKey);
-
-            $snakeCaseArgs[$snakeCaseKey] = $value;
+            $transformedArgs[$key] = $value;
         }
 
-        $context = ['args' => $snakeCaseArgs, 'content' => $componentContent, 'component_id' => $componentTwigId];
+        $context = ['args' => $transformedArgs, 'content' => $componentContent, 'component_id' => $componentTwigId];
         $content = $this->twig->render($previewTemplate, $context);
 
         // During development, storybook is served from a different port than the Symfony app
