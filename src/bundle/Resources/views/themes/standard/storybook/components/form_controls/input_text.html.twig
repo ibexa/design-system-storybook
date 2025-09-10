@@ -2,15 +2,15 @@
 
 {% block component %}
     {% set label = args.label|default('') %}
-    {% set helper_text = args.helper_text|default('') %}
-    {% set args = args|filter((v, k) => k != 'label' and k != 'helper_text') %}
+    {% set helper_text = args.helperText|default('') %}
+    {% set args = args|filter((v, k) => k != 'label' and k != 'helperText') %}
 
-    <twig:ibexa:formControls:InputText {{ ...args }}>
+    <twig:ibexa:form_controls:input_text {{ ...args }}>
         <twig:block name="label">
             {{- label -}}
         </twig:block>
         <twig:block name="helper_text">
             {{- helper_text -}}
         </twig:block>
-    </twig:ibexa:formControls:InputText>
+    </twig:ibexa:form_controls:input_text>
 {% endblock component %}
