@@ -4,5 +4,5 @@
     {% set readonly = args.readOnly|default(false) %}
     {% set args = args|filter((v, k) => k != 'readOnly') %}
 
-    <twig:ibexa:inputs:input_text :readonly="readonly" {{ ...args }} />
+    <twig:ibexa:input_text:input :readonly="readonly" {{ ...args }} />
 {% endblock component %}
