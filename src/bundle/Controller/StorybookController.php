@@ -15,6 +15,7 @@ use Twig\Environment;
 
 final class StorybookController
 {
+    /** @var array<string, string> */
     private static array $componentsMap = [
         'AltRadio/AltRadioInput' => 'alt_radio:input',
         'Checkbox/CheckboxField' => 'checkbox:field',
