@@ -43,9 +43,9 @@ final class StorybookController
 
     private function getComponentId(string $storybookId): string
     {
-        $storybookId = str_replace('components/', '', $storybookId);
+        $cleanStorybookId = str_replace('components/', '', $storybookId);
 
-        return self::$componentsMap[$storybookId] ?? $this->camelToSnake($storybookId);
+        return self::$componentsMap[$cleanStorybookId] ?? $this->camelToSnake($cleanStorybookId);
     }
 
     private function getCustomTemplatePath(string $componentId): string
