@@ -21,7 +21,6 @@ final class StorybookController
         'Checkbox/CheckboxField' => 'checkbox:field',
         'Checkbox/CheckboxInput' => 'checkbox:input',
         'Checkbox/CheckboxesListField' => 'checkbox:list_field',
-        'Checkbox/ThreeStateCheckboxInput' => 'checkbox:three_state_input',
         'InputText/InputTextField' => 'input_text:field',
         'InputText/InputTextInput' => 'input_text:input',
         'RadioButton/RadioButtonField' => 'radio_button:field',
