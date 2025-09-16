@@ -15,6 +15,20 @@ use Twig\Environment;
 
 final class StorybookController
 {
+    /** @var array<string, string> */
+    private static array $componentsMap = [
+        'AltRadio/AltRadioInput' => 'alt_radio:input',
+        'Checkbox/CheckboxField' => 'checkbox:field',
+        'Checkbox/CheckboxInput' => 'checkbox:input',
+        'Checkbox/CheckboxesListField' => 'checkbox:list_field',
+        'Checkbox/ThreeStateCheckboxInput' => 'checkbox:three_state_input',
+        'InputText/InputTextField' => 'input_text:field',
+        'InputText/InputTextInput' => 'input_text:input',
+        'RadioButton/RadioButtonField' => 'radio_button:field',
+        'RadioButton/RadioButtonInput' => 'radio_button:input',
+        'RadioButton/RadioButtonsListField' => 'radio_button:list_field',
+    ];
+
     public function __construct(
         private readonly Environment $twig
     ) {
@@ -26,6 +40,20 @@ final class StorybookController
         $snakeCase = preg_replace($pattern, '_', $camelCase) ?? '';
 
         return strtolower($snakeCase);
+    }
+
+    private function getComponentId(string $storybookId): string
+    {
+        $cleanStorybookId = str_replace('components/', '', $storybookId);
+
+        return self::$componentsMap[$cleanStorybookId] ?? $this->camelToSnake($cleanStorybookId);
+    }
+
+    private function getCustomTemplatePath(string $componentId): string
+    {
+        $customIdTemplateName = str_replace(':', '/', $componentId);
+
+        return sprintf('@IbexaDesignSystemStorybook/themes/standard/storybook/components/%s.html.twig', $customIdTemplateName);
     }
 
     public function getStatus(Request $request): Response
@@ -40,9 +68,8 @@ final class StorybookController
         }
 
         $previewTemplate = sprintf('@IbexaDesignSystemStorybook/themes/standard/storybook/base_preview.html.twig');
-        $customIdTemplateName = $this->camelToSnake($storybookId);
-        $customTemplate = sprintf('@IbexaDesignSystemStorybook/themes/standard/storybook/components/%s.html.twig', $customIdTemplateName);
-        $componentTwigId = str_replace('/', ':', $customIdTemplateName);
+        $componentId = $this->getComponentId($storybookId);
+        $customTemplate = $this->getCustomTemplatePath($componentId);
 
         if ($this->twig->getLoader()->exists($customTemplate)) {
             $previewTemplate = $customTemplate;
@@ -66,7 +93,7 @@ final class StorybookController
             $transformedArgs[$key] = $value;
         }
 
-        $context = ['args' => $transformedArgs, 'content' => $componentContent, 'component_id' => $componentTwigId];
+        $context = ['args' => $transformedArgs, 'content' => $componentContent, 'component_id' => $componentId];
         $content = $this->twig->render($previewTemplate, $context);
 
         // During development, storybook is served from a different port than the Symfony app
