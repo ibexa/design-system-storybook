@@ -1,0 +1,10 @@
+{
+    "extends": "@ibexa/ts-config",
+    "include": [
+        "src/bundle/**/*.ts",
+        "src/bundle/**/*.tsx"
+    ],
+    "compilerOptions": {
+        "paths": {}
+    }
+}
