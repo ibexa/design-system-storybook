@@ -1,0 +1,10 @@
+{% extends '@IbexaDesignSystemStorybook/themes/standard/storybook/base_preview.html.twig' %}
+
+{% block component %}
+    {% set label = args.label|default('') %}
+    {% set args = args|filter((v, k) => k != 'label') %}
+
+    <twig:ibexa:radio_button:field {{ ...args }}>
+        {{- label -}}
+    </twig:ibexa:radio_button:field>
+{% endblock component %}
