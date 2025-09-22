@@ -7,7 +7,6 @@ const observeComponentDimensionChanges = () => {
         return Number.parseInt(propertyStyle, 10);
     };
     const margin = getBodyCssProperty('margin');
-
     const resizeObserver = new ResizeObserver((entries) => {
         const { width, height } = entries[0].contentRect;
         const componentWidth = Math.ceil(width) + 2 * margin; // eslint-disable-line no-magic-numbers
