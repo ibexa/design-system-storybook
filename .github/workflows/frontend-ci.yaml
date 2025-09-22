@@ -4,23 +4,26 @@ on:
     push:
         paths:
             - "**.js"
+            - "**.ts"
         branches:
             - main
             - '[0-9]+.[0-9]+'
     pull_request:
         paths:
             - "**.js"
+            - "**.ts"
 
 jobs:
     frontend-test:
         name: Frontend build test
-        runs-on: "ubuntu-20.04"
+        runs-on: "ubuntu-24.04"
         timeout-minutes: 5
 
         steps:
-            -   uses: actions/checkout@v2
-            -   uses: actions/setup-node@v2
+            -   uses: actions/checkout@v4
+            -   uses: actions/setup-node@v4
                 with:
-                    node-version: '14'
+                    node-version: '20'
             -   run: yarn install
+            -   run: yarn ibexa-generate-tsconfig --use-relative-paths
             -   run: yarn test
