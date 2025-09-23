@@ -1,0 +1,9 @@
+{% extends '@IbexaDesignSystemStorybook/themes/standard/storybook/base_preview.html.twig' %}
+
+{% block component %}
+    {% if args.path is defined %}
+        {% set args = args|merge({'path': '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/' ~ args.path }) %}
+    {% endif %}
+
+    <twig:ibexa:icon {{ ...args }} />
+{% endblock component %}
