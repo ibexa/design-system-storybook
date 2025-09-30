@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\DesignSystemStorybook\Controller;
 
+use Ibexa\DesignSystemStorybook\ComponentsResolver;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Profiler\Profiler;
@@ -15,49 +16,15 @@ use Twig\Environment;
 
 final class StorybookController
 {
-    /** @var array<string, string> */
-    private static array $componentsMap = [
-        'AltRadio/AltRadioInput' => 'alt_radio:input',
-        'Checkbox/CheckboxField' => 'checkbox:field',
-        'Checkbox/CheckboxInput' => 'checkbox:input',
-        'Checkbox/CheckboxesListField' => 'checkbox:list_field',
-        'InputText/InputTextField' => 'input_text:field',
-        'InputText/InputTextInput' => 'input_text:input',
-        'RadioButton/RadioButtonField' => 'radio_button:field',
-        'RadioButton/RadioButtonInput' => 'radio_button:input',
-        'RadioButton/RadioButtonsListField' => 'radio_button:list_field',
-    ];
-
     public function __construct(
-        private readonly Environment $twig
+        private readonly Environment $twig,
+        private readonly ComponentsResolver $componentsResolver
     ) {
     }
 
-    private function camelToSnake(string $camelCase): string
+    public function getStatus(): Response
     {
-        $pattern = '/(?<=\\w)(?=[A-Z])|(?<=[a-z])(?=[0-9])/';
-        $snakeCase = preg_replace($pattern, '_', $camelCase) ?? '';
-
-        return strtolower($snakeCase);
-    }
-
-    private function getComponentId(string $storybookId): string
-    {
-        $cleanStorybookId = str_replace('components/', '', $storybookId);
-
-        return self::$componentsMap[$cleanStorybookId] ?? $this->camelToSnake($cleanStorybookId);
-    }
-
-    private function getCustomTemplatePath(string $componentId): string
-    {
-        $customIdTemplateName = str_replace(':', '/', $componentId);
-
-        return sprintf('@IbexaDesignSystemStorybook/themes/standard/storybook/components/%s.html.twig', $customIdTemplateName);
-    }
-
-    public function getStatus(Request $request): Response
-    {
-        return new Response('', Response::HTTP_OK);
+        return new Response(null, Response::HTTP_NO_CONTENT);
     }
 
     public function getPreview(Request $request, string $storybookId, ?Profiler $profiler = null): Response
@@ -67,7 +34,7 @@ final class StorybookController
         }
 
         $previewTemplate = sprintf('@IbexaDesignSystemStorybook/themes/standard/storybook/base_preview.html.twig');
-        $componentId = $this->getComponentId($storybookId);
+        $componentId = $this->componentsResolver->resolve($storybookId);
         $customTemplate = $this->getCustomTemplatePath($componentId);
 
         if ($this->twig->getLoader()->exists($customTemplate)) {
@@ -100,6 +67,13 @@ final class StorybookController
         $headers = ['Access-Control-Allow-Origin' => 'http://localhost:6006'];
 
         return new Response($content, Response::HTTP_OK, $headers);
+    }
+
+    private function getCustomTemplatePath(string $componentId): string
+    {
+        $customIdTemplateName = str_replace(':', '/', $componentId);
+
+        return sprintf('@IbexaDesignSystemStorybook/themes/standard/storybook/components/%s.html.twig', $customIdTemplateName);
     }
 
     private function shouldDisableProfiler(Request $request): bool
