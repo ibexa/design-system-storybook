@@ -11,7 +11,6 @@ namespace Ibexa\Bundle\DesignSystemStorybook\Controller;
 use Ibexa\DesignSystemStorybook\ComponentsResolver;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Profiler\Profiler;
 use Twig\Environment;
 
 final class StorybookController
@@ -27,12 +26,8 @@ final class StorybookController
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
 
-    public function getPreview(Request $request, string $storybookId, ?Profiler $profiler = null): Response
+    public function getPreview(Request $request, string $storybookId): Response
     {
-        if ($this->shouldDisableProfiler($request)) {
-            $profiler?->disable();
-        }
-
         $previewTemplate = sprintf('@IbexaDesignSystemStorybook/themes/standard/storybook/base_preview.html.twig');
         $componentId = $this->componentsResolver->resolve($storybookId);
         $customTemplate = $this->getCustomTemplatePath($componentId);
@@ -77,10 +72,5 @@ final class StorybookController
             '@IbexaDesignSystemStorybook/themes/standard/storybook/components/%s.html.twig',
             $customIdTemplateName
         );
-    }
-
-    private function shouldDisableProfiler(Request $request): bool
-    {
-        return $request->headers->get('sec-fetch-dest') === 'iframe';
     }
 }

@@ -4,3 +4,5 @@ services:
         autoconfigure: true
 
     Ibexa\DesignSystemStorybook\ComponentsResolver: ~
+
+    Ibexa\DesignSystemStorybook\EventSubscriber\StorybookProfilerSubscriber: ~
