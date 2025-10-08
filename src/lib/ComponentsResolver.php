@@ -10,7 +10,7 @@ namespace Ibexa\DesignSystemStorybook;
 
 final class ComponentsResolver
 {
-    /** @var array<string,string> */
+    /** @var array<string, string> */
     private const array CUSTOM_COMPONENTS_MAP = [
         'AltRadio/AltRadioInput' => 'alt_radio:input',
         'Checkbox/CheckboxField' => 'checkbox:field',

@@ -73,7 +73,10 @@ final class StorybookController
     {
         $customIdTemplateName = str_replace(':', '/', $componentId);
 
-        return sprintf('@IbexaDesignSystemStorybook/themes/standard/storybook/components/%s.html.twig', $customIdTemplateName);
+        return sprintf(
+            '@IbexaDesignSystemStorybook/themes/standard/storybook/components/%s.html.twig',
+            $customIdTemplateName
+        );
     }
 
     private function shouldDisableProfiler(Request $request): bool
