@@ -8,3 +8,10 @@ services:
     Ibexa\DesignSystemStorybook\EventSubscriber\StorybookProfilerSubscriber:
         arguments:
             $profiler: '@?profiler'
+
+    Ibexa\DesignSystemStorybook\Preview\PreviewViewBuilder: ~
+
+    Ibexa\DesignSystemStorybook\Preview\TwigPreviewRenderer: ~
+
+    Ibexa\DesignSystemStorybook\Preview\PreviewRendererInterface:
+        alias: Ibexa\DesignSystemStorybook\Preview\TwigPreviewRenderer
