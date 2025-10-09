@@ -12,5 +12,10 @@
                 {{ component('ibexa:' ~ component_id, args) }}
             {% endblock component %}
         </div>
+
+        <script type="text/javascript">
+            {% block scripts %}
+            {% endblock scripts %}
+        </script>
     </body>
 </html>
