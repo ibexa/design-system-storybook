@@ -1,0 +1,7 @@
+{% extends '@IbexaDesignSystemStorybook/themes/standard/storybook/base_preview.html.twig' %}
+
+{% block component %}
+    <twig:ibexa:tag {{ ...args }}>
+        {{ content|raw }}
+    </twig:ibexa:tag>
+{% endblock component %}
