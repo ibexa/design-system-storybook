@@ -1,0 +1,17 @@
+{% extends '@IbexaDesignSystemStorybook/themes/standard/storybook/base_preview.html.twig' %}
+
+{% block component %}
+    <twig:ibexa:chip {{ ...args }}>
+        {{ content|raw }}
+    </twig:ibexa:chip>
+{% endblock component %}
+
+{% block scripts %}
+    {{ parent() }}
+
+    const closeBtnElement = document.querySelector('.ids-chip__close');
+
+    closeBtnElement.addEventListener('click', (event) => { const eventClone = { ...event };
+
+    window.parent?.postMessage({ method: 'onClick', args: [eventClone], },"*"); });
+{% endblock scripts %}
