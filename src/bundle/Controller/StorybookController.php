@@ -37,6 +37,7 @@ final class StorybookController
         }
 
         $args = json_decode($request->query->getString('properties'), true);
+        $parameters = json_decode($request->query->getString('customParameters'), true);
         $componentContent = null;
         $transformedArgs = [];
 
@@ -54,7 +55,7 @@ final class StorybookController
             $transformedArgs[$key] = $value;
         }
 
-        $context = ['args' => $transformedArgs, 'content' => $componentContent, 'component_id' => $componentId];
+        $context = ['args' => $transformedArgs, 'content' => $componentContent, 'component_id' => $componentId, 'parameters' => $parameters];
         $content = $this->twig->render($previewTemplate, $context);
 
         // During development, storybook is served from a different port than the Symfony app
