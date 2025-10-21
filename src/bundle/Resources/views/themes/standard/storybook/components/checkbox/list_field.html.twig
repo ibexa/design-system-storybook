@@ -18,9 +18,11 @@
 {% block scripts %}
     {{ parent() }}
 
-    const component = document.querySelector('.ids-checkboxes-list-field');
+    <script type="text/javascript">
+        const component = document.querySelector('.ids-checkboxes-list-field');
 
-    component.addEventListener('ids:checkboxes-list-field:change', (event) => { 
-        window.parent?.postMessage({ method: 'onChange', args: [event.detail], },"*");
-    });
+        component.addEventListener('ids:checkboxes-list-field:change', (event) => {
+            window.parent?.postMessage({ method: 'onChange', args: [event.detail], },"*");
+        });
+    </script
 {% endblock scripts %}
