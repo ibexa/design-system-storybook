@@ -24,5 +24,5 @@
         component.addEventListener('ids:checkboxes-list-field:change', (event) => {
             window.parent?.postMessage({ method: 'onChange', args: [event.detail], },"*");
         });
-    </script
+    </script>
 {% endblock scripts %}
