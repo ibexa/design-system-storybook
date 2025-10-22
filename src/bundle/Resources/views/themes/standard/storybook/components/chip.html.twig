@@ -8,10 +8,13 @@
 
 {% block scripts %}
     {{ parent() }}
+    <script type="text/javascript">
+        const deleteBtnElement = document.querySelector('.ids-chip__delete');
 
-    const deleteBtnElement = document.querySelector('.ids-chip__delete');
+        deleteBtnElement.addEventListener('click', (event) => {
+            const eventClone = { ...event };
 
-    deleteBtnElement.addEventListener('click', (event) => { const eventClone = { ...event };
-
-    window.parent?.postMessage({ method: 'onClick', args: [eventClone], },"*"); });
+            window.parent?.postMessage({ method: 'onClick', args: [eventClone], }, "*");
+        });
+    </script>
 {% endblock scripts %}
