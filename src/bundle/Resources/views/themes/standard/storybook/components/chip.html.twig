@@ -9,9 +9,9 @@
 {% block scripts %}
     {{ parent() }}
 
-    const closeBtnElement = document.querySelector('.ids-chip__close');
+    const deleteBtnElement = document.querySelector('.ids-chip__delete');
 
-    closeBtnElement.addEventListener('click', (event) => { const eventClone = { ...event };
+    deleteBtnElement.addEventListener('click', (event) => { const eventClone = { ...event };
 
     window.parent?.postMessage({ method: 'onClick', args: [eventClone], },"*"); });
 {% endblock scripts %}
