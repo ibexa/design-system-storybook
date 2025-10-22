@@ -1,25 +1,25 @@
 {% extends '@IbexaDesignSystemStorybook/themes/standard/storybook/base_preview.html.twig' %}
 
 {% block component %}
-<style>
-    .wrapper {
-        width: 390px;
-        border: 1px solid #000;
-    }
-    .ids-overflow-list__item {
-        border: 1px solid #000;
-        padding: 4px 8px;
-        margin: 2px;
-    }
-</style>
-<div class="wrapper">
-    <twig:ibexa:overflow_list {{ ...args }}>
-        <twig:block name="item">
-            <div class="ids-overflow-list__item">{{ item.content }}</div>
-        </twig:block>
-        <twig:block name="more_item">
-            <div class="ids-overflow-list__item ids-overflow-list__item--more">+{{ "{{ hidden_count }}" }}</div>
-        </twig:block>
-    </twig:ibexa:overflow_list>
-</div>
+    <style>
+        .wrapper {
+            width: 390px;
+            border: 1px solid #000;
+        }
+        .ids-overflow-list__item {
+            border: 1px solid #000;
+            padding: 4px 8px;
+            margin: 2px;
+        }
+    </style>
+    <div class="wrapper">
+        <twig:ibexa:overflow_list :itemTemplateProps="['id', 'content']" {{ ...args }}>
+            <twig:block name="item">
+                <div class="ids-overflow-list__item">{{ item.content }}</div>
+            </twig:block>
+            <twig:block name="more_item">
+                <div class="ids-overflow-list__item ids-overflow-list__item--more">+{{ "{{ hidden_count }}" }}</div>
+            </twig:block>
+        </twig:ibexa:overflow_list>
+    </div>
 {% endblock component %}
