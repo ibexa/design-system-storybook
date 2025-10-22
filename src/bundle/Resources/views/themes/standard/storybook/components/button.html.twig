@@ -9,9 +9,13 @@
 {% block scripts %}
     {{ parent() }}
 
-    const btnElement = document.querySelector('.ids-btn');
+    <script type="text/javascript">
+        const btnElement = document.querySelector('.ids-btn');
 
-    btnElement.addEventListener('click', (event) => { const eventClone = { ...event };
+        btnElement.addEventListener('click', (event) => {
+            const eventClone = { ...event };
 
-    window.parent?.postMessage({ method: 'onClick', args: [eventClone], },"*"); });
+            window.parent?.postMessage({ method: 'onClick', args: [eventClone], },"*");
+        });
+    </script>
 {% endblock scripts %}

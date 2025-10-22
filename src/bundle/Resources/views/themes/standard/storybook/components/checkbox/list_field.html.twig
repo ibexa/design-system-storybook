@@ -1,0 +1,28 @@
+{% extends '@IbexaDesignSystemStorybook/themes/standard/storybook/base_preview.html.twig' %}
+
+{% block component %}
+    {% set label = args.label|default('') %}
+    {% set helper_text = args.helperText|default('') %}
+    {% set args = args|filter((v, k) => k != 'label' and k != 'helperText') %}
+
+    <twig:ibexa:checkbox:list_field {{ ...args }}>
+        <twig:block name="label">
+            {{- label -}}
+        </twig:block>
+        <twig:block name="helper_text">
+            {{- helper_text -}}
+        </twig:block>
+    </twig:ibexa:checkbox:list_field>
+{% endblock component %}
+
+{% block scripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        const component = document.querySelector('.ids-checkboxes-list-field');
+
+        component.addEventListener('ids:checkboxes-list-field:change', (event) => {
+            window.parent?.postMessage({ method: 'onChange', args: [event.detail], },"*");
+        });
+    </script>
+{% endblock scripts %}
