@@ -13,6 +13,7 @@ final class ComponentsResolver
     /** @var array<string, string> */
     private const array CUSTOM_COMPONENTS_MAP = [
         'AltRadio/AltRadioInput' => 'alt_radio:input',
+        'AltRadio/AltRadiosListField' => 'alt_radio:list_field',
         'Checkbox/CheckboxField' => 'checkbox:field',
         'Checkbox/CheckboxInput' => 'checkbox:input',
         'Checkbox/CheckboxesListField' => 'checkbox:list_field',
