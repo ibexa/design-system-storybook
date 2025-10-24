@@ -5,4 +5,6 @@ services:
 
     Ibexa\DesignSystemStorybook\ComponentsResolver: ~
 
-    Ibexa\DesignSystemStorybook\EventSubscriber\StorybookProfilerSubscriber: ~
+    Ibexa\DesignSystemStorybook\EventSubscriber\StorybookProfilerSubscriber:
+        arguments:
+            $profiler: '@?profiler'
