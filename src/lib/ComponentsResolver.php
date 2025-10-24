@@ -21,6 +21,8 @@ final class ComponentsResolver
         'RadioButton/RadioButtonField' => 'radio_button:field',
         'RadioButton/RadioButtonInput' => 'radio_button:input',
         'RadioButton/RadioButtonsListField' => 'radio_button:list_field',
+        'ToggleButton/ToggleButtonField' => 'toggle_button:field',
+        'ToggleButton/ToggleButtonInput' => 'toggle_button:input',
     ];
 
     public function resolve(string $storybookId): string

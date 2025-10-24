@@ -1,0 +1,16 @@
+{% extends '@IbexaDesignSystemStorybook/themes/standard/storybook/base_preview.html.twig' %}
+
+{% block component %}
+    {% set label = args.label|default('') %}
+    {% set helper_text = args.helperText|default('') %}
+    {% set args = args|filter((v, k) => k != 'label' and k != 'helperText') %}
+
+    <twig:ibexa:toggle_button:field {{ ...args }}>
+        <twig:block name="label">
+            {{- label -}}
+        </twig:block>
+        <twig:block name="helper_text">
+            {{- helper_text -}}
+        </twig:block>
+    </twig:ibexa:toggle_button:field>
+{% endblock component %}
