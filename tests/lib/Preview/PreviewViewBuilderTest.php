@@ -62,6 +62,7 @@ final class PreviewViewBuilderTest extends TestCase
                 'args' => ['label' => 'Name'],
                 'content' => null,
                 'component_id' => $componentId,
+                'parameters' => [],
             ],
             $view->context
         );
@@ -103,6 +104,39 @@ final class PreviewViewBuilderTest extends TestCase
                 ],
                 'content' => '<span>Inner</span>',
                 'component_id' => $componentId,
+                'parameters' => [],
+            ],
+            $view->context
+        );
+    }
+
+    public function testBuildIncludesCustomParametersWhenProvided(): void
+    {
+        $storybookId = 'components/InputText/InputTextField';
+        $componentId = 'input_text:field';
+
+        $this->loader
+            ->method('exists')
+            ->willReturn(false);
+
+        $customParameters = [
+            'locale' => 'en_GB',
+            'theme' => 'dark',
+        ];
+
+        $request = Request::create('/preview', 'GET', [
+            'customParameters' => json_encode($customParameters, JSON_THROW_ON_ERROR),
+        ]);
+
+        $builder = new PreviewViewBuilder($this->twig, $this->resolver);
+        $view = $builder->build($request, $storybookId);
+
+        self::assertSame(
+            [
+                'args' => [],
+                'content' => null,
+                'component_id' => $componentId,
+                'parameters' => $customParameters,
             ],
             $view->context
         );
@@ -132,6 +166,7 @@ final class PreviewViewBuilderTest extends TestCase
                 'args' => [],
                 'content' => null,
                 'component_id' => $componentId,
+                'parameters' => [],
             ],
             $view->context
         );
