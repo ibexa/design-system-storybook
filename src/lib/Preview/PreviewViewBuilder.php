@@ -32,9 +32,9 @@ final readonly class PreviewViewBuilder
         }
 
         $argsJson = $request->query->getString('properties');
-        $args = $argsJson !== '' ? json_decode($argsJson, true, 512, JSON_THROW_ON_ERROR) : [];
+        $args = $argsJson !== '' ? json_decode($argsJson, true, flags: JSON_THROW_ON_ERROR) : [];
         $customParametersJson = $request->query->getString('customParameters');
-        $parameters = $customParametersJson !== '' ? json_decode($customParametersJson, true, 512, JSON_THROW_ON_ERROR) : [];
+        $parameters = $customParametersJson !== '' ? json_decode($customParametersJson, true, flags: JSON_THROW_ON_ERROR) : [];
 
         $componentContent = null;
         $transformedArgs = [];

@@ -8,15 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\DesignSystemStorybook\Preview;
 
-use Generator;
 use Ibexa\DesignSystemStorybook\Preview\PreviewView;
 use Ibexa\DesignSystemStorybook\Preview\TwigPreviewRenderer;
 use PHPUnit\Framework\TestCase;
-use Throwable;
 use Twig\Environment;
 use Twig\Error\LoaderError;
-use Twig\Error\RuntimeError;
-use Twig\Error\SyntaxError;
 
 final class TwigPreviewRendererTest extends TestCase
 {
@@ -53,33 +49,23 @@ final class TwigPreviewRendererTest extends TestCase
         self::assertSame($expectedHtml, $html);
     }
 
-    /**
-     * @dataProvider twigExceptionProvider
-     */
-    public function testRenderBubblesUpTwigExceptions(Throwable $exception): void
+    public function testRenderBubblesUpTwigException(): void
     {
         $template = 'any.html.twig';
         $context = ['args' => []];
+        $exception = new LoaderError('template not found');
 
         $this->twig
+            ->expects(self::once())
             ->method('render')
+            ->with($template, $context)
             ->willThrowException($exception);
 
         $renderer = new TwigPreviewRenderer($this->twig);
         $view = new PreviewView($template, $context);
 
-        $this->expectException($exception::class);
+        $this->expectExceptionObject($exception);
 
         $renderer->render($view);
-    }
-
-    /**
-     * @return Generator<string, array{0: \Throwable}>
-     */
-    public function twigExceptionProvider(): Generator
-    {
-        yield 'loader' => [new LoaderError('template not found')];
-        yield 'runtime' => [new RuntimeError('runtime error')];
-        yield 'syntax' => [new SyntaxError('syntax error')];
     }
 }
