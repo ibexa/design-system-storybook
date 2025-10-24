@@ -82,7 +82,7 @@ final class PreviewViewBuilderTest extends TestCase
             ->willReturn(true);
 
         $props = [
-            'className' => 'my-klass',
+            'className' => 'my-class',
             'children' => '<span>Inner</span>',
             'placeholder' => 'Type here…',
         ];
@@ -99,7 +99,7 @@ final class PreviewViewBuilderTest extends TestCase
         self::assertSame(
             [
                 'args' => [
-                    'class' => 'my-klass',
+                    'class' => 'my-class',
                     'placeholder' => 'Type here…',
                 ],
                 'content' => '<span>Inner</span>',
