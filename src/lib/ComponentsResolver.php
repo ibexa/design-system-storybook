@@ -16,6 +16,7 @@ final class ComponentsResolver
         'Checkbox/CheckboxField' => 'checkbox:field',
         'Checkbox/CheckboxInput' => 'checkbox:input',
         'Checkbox/CheckboxesListField' => 'checkbox:list_field',
+        'Dropdown/DropdownMultiInput' => 'dropdown_multi:input',
         'Dropdown/DropdownSingleInput' => 'dropdown_single:input',
         'InputText/InputTextField' => 'input_text:field',
         'InputText/InputTextInput' => 'input_text:input',
