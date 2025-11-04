@@ -1,6 +1,7 @@
 @use '@ids-assets/scss/styles.scss' with (
     $assets-base-path: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/'
 );
+@use '@ids-assets/scss/functions' as *;
 
 body {
     width: 100vw;
@@ -8,4 +9,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.component-preview {
+    display: inline-block;
+    padding: calculateRem(8px);
 }
