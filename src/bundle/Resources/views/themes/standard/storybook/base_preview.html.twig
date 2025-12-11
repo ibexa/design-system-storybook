@@ -7,7 +7,7 @@
         {% endblock head %}
     </head>
     <body>
-        <div class="component-preview" style="display: inline-block">
+        <div class="component-preview">
             {% block component %}
                 {{ component('ibexa:' ~ component_id, args) }}
             {% endblock component %}
