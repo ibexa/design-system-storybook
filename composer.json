@@ -7,20 +7,20 @@
     ],
     "require": {
         "php": ">=8.3",
-        "ibexa/core": "~5.0.x-dev",
-        "symfony/config": "^7.2",
-        "symfony/dependency-injection": "^7.2",
-        "symfony/event-dispatcher": "^7.2",
-        "symfony/http-foundation": "^7.2",
-        "symfony/http-kernel": "^7.2",
-        "symfony/yaml": "^7.2"
+        "ibexa/core": "~6.0.x-dev",
+        "symfony/config": "^7.4",
+        "symfony/dependency-injection": "^7.4",
+        "symfony/event-dispatcher": "^7.4",
+        "symfony/http-foundation": "^7.4",
+        "symfony/http-kernel": "^7.4",
+        "symfony/yaml": "^7.4"
     },
     "require-dev": {
-        "ibexa/behat": "~5.0.x-dev",
+        "ibexa/behat": "~6.0.x-dev",
         "ibexa/code-style": "~2.0.0",
-        "ibexa/doctrine-schema": "~5.0.x-dev",
-        "ibexa/phpstan": "~5.0.x-dev",
-        "ibexa/rector": "~5.0.x-dev",
+        "ibexa/doctrine-schema": "~6.0.x-dev",
+        "ibexa/phpstan": "~6.0.x-dev",
+        "ibexa/rector": "~6.0.x-dev",
         "phpstan/phpstan": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
         "phpstan/phpstan-symfony": "^2.0",
@@ -57,7 +57,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-main": "5.0.x-dev"
+            "dev-main": "6.0.x-dev"
         }
     },
     "config": {
